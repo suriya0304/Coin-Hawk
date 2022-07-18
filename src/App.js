@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import './App.css';
 
+import React from 'react';
+import { BrowserRouter,Route ,Routes} from 'react-router-dom';
+import Header from './component/header/Header';
+import Homepage from './pages/homepage/Homepage';
+import CoinPage from './pages/coinpage/CoinPage';
+import { ThemeProvider } from '@emotion/react';
+import { dark } from './theme/DarkTheme';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+      <Header/>
+      <Routes>
+        
+        <Route path='/'>
+          <Route index element={<Homepage/>}></Route>
+          <Route path='coins/:id' element={<CoinPage/>}/>
+        </Route>
+      </Routes>
+      
+    </BrowserRouter> 
+  </div>
+    
   );
 }
 

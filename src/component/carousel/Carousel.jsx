@@ -4,13 +4,13 @@ import { TrendingCoins } from '../../config/api'
 import { CoinState } from '../../context/CoinContext'
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-import { Link } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { Stack, styled, Typography } from '@mui/material';
 import Slider from "react-slick";
 import './carousel.css'
 const Carousel = () => {
-  
+  const navigate=useNavigate()
   const {currency,symbol}= CoinState()
 
   const [trending , setTrending]= useState([])
@@ -25,9 +25,9 @@ const Carousel = () => {
    console.log(TrendingCoins(currency))
   }
   const items = trending.map((coin)=>{
+    
     return(
-      <Link  to={`/coins/${coin.name}`} style={{textDecoration:'none'}} >
-    <Stack  key={coin.id} direction='row'>
+    <Stack  onClick={()=>navigate(`/coin/${coin.id.toLowerCase()}`)}>
       <Stack style={{gap:'10px',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',color:'white'}}>
         <img src={coin.image} alt={(coin.id)} style={{width:70,height:70}} />
         <Stack direction='row' justifyContent='space-between' width='100px'>
@@ -39,10 +39,10 @@ const Carousel = () => {
       </Stack>
      
     </Stack>
-    </Link>
 
       )
   })
+  
   const settings = {
       infinite: true,
       slidesToShow: 4,

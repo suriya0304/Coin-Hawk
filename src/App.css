@@ -4,3 +4,6 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+.App{
+  height: 100vh;
+}

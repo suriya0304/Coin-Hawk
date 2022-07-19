@@ -10,6 +10,7 @@ import CoinPage from './pages/coinpage/CoinPage';
 import { ThemeProvider } from '@emotion/react';
 import { dark } from './theme/DarkTheme';
 function App() {
+  console.log(process.env)
   return (
     <div className="App">
       <BrowserRouter>
@@ -18,7 +19,7 @@ function App() {
         
         <Route path='/'>
           <Route index element={<Homepage/>}></Route>
-          <Route path='coins/:id' element={<CoinPage/>}/>
+          <Route path='coin/:id' element={<CoinPage/>}/>
         </Route>
       </Routes>
       

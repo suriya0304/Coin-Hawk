@@ -10,8 +10,10 @@ import axios from 'axios';
 import { CoinList } from '../../config/api';
 import  { CoinState } from '../../context/CoinContext';
 import Pagination from '@mui/material/Pagination';
-import { styled } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { styled, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const TableComponent = () => {
     function createData(id, name, price, priceChange,MarketCapital) {
@@ -26,23 +28,33 @@ const TableComponent = () => {
     useEffect(()=>{
         fetchCoinList()
       },[currency])
-    console.log(list)
 
-
+      
       const [page,setPage]=useState(0)
-    const rows =list.map((coin,index)=>{
-
-        return createData(parseInt(index)+1,coin.name,symbol+coin.current_price.toFixed(2),coin.price_change_percentage_24h.toFixed(2)+'%',symbol+coin.market_cap)
+      const [searchContent,setSearchContent]=useState('')
+    const tempRows =list.filter((coin)=>{
+        return (coin.name.toLowerCase()).includes(searchContent.toLowerCase()) || (coin.symbol.toLowerCase()).includes(searchContent.toLowerCase())
     })
+
+    const rows = tempRows.map((coin,index)=>{
+        return createData(parseInt(index)+1,coin.name,symbol+coin.current_price.toFixed(2),coin.price_change_percentage_24h.toFixed(2)+'%',symbol+coin.market_cap)
+    }) 
     const CustomCell=styled(TableCell)({
         color:'whitesmoke'
     })
-
+    
     const HeadCell=styled(TableCell)({
         fontSize:'20px'
     })
+    const navigate= useNavigate()
+
+    
+    const filteredList = list.filter((coin)=>{
+        return (coin.name.toLowerCase()).includes(searchContent.toLowerCase())
+    })
   return (
       <div className="table-container" style={{padding:'50px',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
+      <TextField id="outlined-basic" variant="outlined" placeholder=' search a coin...' sx={{width:'90%'}} onChange={(e)=>setSearchContent(e.target.value)}/>
         <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -63,7 +75,7 @@ const TableComponent = () => {
                 <CustomCell component="th" scope="row">
                     {row.id}
                 </CustomCell>
-                <Link to={`/coins/${row.name.toLowerCase()}` } style={{textDecoration:'none'}}><CustomCell align="left">{row.name}</CustomCell></Link> 
+                <CustomCell sx={{cursor:'pointer'}} align="left" onClick={()=>navigate(`/coin/${row.name.toLowerCase()}`)}>{row.name}</CustomCell>
                 <CustomCell align="right">{row.price}</CustomCell>
                 <CustomCell align="right">{row.priceChange}</CustomCell>
                 <CustomCell align="right">{row.MarketCapital}</CustomCell>

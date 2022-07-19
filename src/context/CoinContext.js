@@ -3,6 +3,7 @@ const Coin =createContext({})
 const CoinContext = ({children}) => {
     const [symbol,setSymbol]=useState('$')
     const [currency,setCurrency]=useState('USD')
+    const [user,setUser]=useState(null)
 
 
     useEffect(()=>{

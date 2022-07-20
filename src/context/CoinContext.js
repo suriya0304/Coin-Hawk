@@ -1,9 +1,17 @@
 import React,{Children, createContext, useContext, useEffect, useState} from 'react'
+
+
 const Coin =createContext({})
+
 const CoinContext = ({children}) => {
     const [symbol,setSymbol]=useState('$')
     const [currency,setCurrency]=useState('USD')
     const [user,setUser]=useState(null)
+    const [alert,setAlert] = useState({
+      open:false,
+      msg:'',
+      type:'success'
+    })
 
 
     useEffect(()=>{
@@ -11,9 +19,8 @@ const CoinContext = ({children}) => {
         else{setSymbol('₹')}
         
     },[currency])
-    console.log(symbol,currency)
   return (
-    <Coin.Provider value={{symbol,currency,setSymbol,setCurrency}}>
+    <Coin.Provider value={{symbol,currency,setSymbol,setCurrency,alert,setAlert}}>
         {children}
     </Coin.Provider>
   )

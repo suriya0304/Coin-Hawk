@@ -2,11 +2,10 @@
 import React, { useEffect, useState } from 'react'
 import { TrendingCoins } from '../../config/api'
 import { CoinState } from '../../context/CoinContext'
-import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import { Stack, styled, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import Slider from "react-slick";
 import './carousel.css'
 const Carousel = () => {
@@ -27,7 +26,7 @@ const Carousel = () => {
   const items = trending.map((coin)=>{
     
     return(
-    <Stack  onClick={()=>navigate(`/coin/${coin.id.toLowerCase()}`)}>
+    <Stack key={coin.id} onClick={()=>navigate(`/coin/${coin.id.toLowerCase()}`)}>
       <Stack style={{gap:'10px',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',color:'white'}}>
         <img src={coin.image} alt={(coin.id)} style={{width:70,height:70}} />
         <Stack direction='row' justifyContent='space-between' width='100px'>

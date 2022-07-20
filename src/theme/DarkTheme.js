@@ -10,6 +10,9 @@ export const dark=createTheme({
         background:{
             default:'#423F3E',
             paper:'black'
+        },
+        accent:{
+            main:'#fff'
         }
     }
 })

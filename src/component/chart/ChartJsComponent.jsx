@@ -3,8 +3,7 @@ import React,{useState,useEffect} from 'react'
 import { Line } from 'react-chartjs-2'
 import { HistoricalChart } from '../../config/api'
 import { CoinState } from '../../context/CoinContext'
-import Chart from 'chart.js/auto';
-import { Box, Button, Stack, styled } from '@mui/material'
+import { Box, Stack, styled } from '@mui/material'
 const ChartJsComponent = (props) => {
     const {id}=props
     const {symbol,currency}=CoinState()

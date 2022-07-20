@@ -9,6 +9,7 @@ import Homepage from './pages/homepage/Homepage';
 import CoinPage from './pages/coinpage/CoinPage';
 import { ThemeProvider } from '@emotion/react';
 import { dark } from './theme/DarkTheme';
+import AlertPop from "./component/alert/Alert";
 function App() {
   console.log(process.env)
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='coin/:id' element={<CoinPage/>}/>
         </Route>
       </Routes>
+      <AlertPop/>
       
     </BrowserRouter> 
   </div>

@@ -1,11 +1,12 @@
-import { ThemeProvider } from '@emotion/react'
-import { AppBar, Box, MenuItem,Button, Select, styled, Toolbar,Modal, ButtonGroup} from '@mui/material'
-import { color, Container, height } from '@mui/system'
+
+import { AppBar, Box, MenuItem,Button, Select, styled, Toolbar,Modal, ButtonGroup, Stack} from '@mui/material'
+import { Container } from '@mui/system'
 import React,{useState} from 'react'
 import { useNavigate } from 'react-router'
 import { CoinState } from '../../context/CoinContext'
-import { Hawk } from '../../svg/hawk'
+import { Hawk } from '../../assets/svg/hawk'
 import { Login, SignUp } from '../loginAndSignUp/LoginandSignUp'
+import GoogleLogin from '../loginWithGoogle/GoogleLogin'
 
 
 const Header = () => {
@@ -35,11 +36,14 @@ const Header = () => {
   };
   
   const StyledBox=styled(Box)({
-    backgroundColor:'grey'
+    borderRadius:'15px',
+    backgroundColor:'#2e2b2b'
   })
-  const StyledButton=styled(Button)({
-    width:'50%'
+  const StyledButton=styled(Box)({
+    flex:'1', paddingTop:"20px", fontSize:'22px', textAlign:'center',cursor:'pointer' 
   })
+
+  const btnStyle={backgroundColor:'orange',color:'black',borderRadius:'5px',fontWeight:'bold',marginLeft:'15px',width:'90px' }
   return (
     
     
@@ -55,7 +59,7 @@ const Header = () => {
             <MenuItem value='USD'>USD</MenuItem>
             <MenuItem value='INR'>INR</MenuItem>
           </Select>
-          <Button onClick={handleOpen} sx={{backgroundColor:'orange',color:'black',borderRadius:'5px',fontWeight:'bold',marginLeft:'15px',width:'90px','&:hover':{backgroundColor:'white'}}}>Login</Button>
+          <Button onClick={handleOpen} sx={btnStyle}>Login</Button>
         </div>
         
       </Toolbar>
@@ -67,13 +71,14 @@ const Header = () => {
           aria-describedby="modal-modal-description"
         > 
         <StyledBox style={style}>
-          <ButtonGroup disableElevation variant="contained" sx={{width:'100%'}}>
+          <Stack direction='row' width='100%'>
             <StyledButton onClick={()=>setAuthMethod('login')}>Login</StyledButton>
             <StyledButton onClick={()=>setAuthMethod('signup')}>Sign Up</StyledButton>
-          </ButtonGroup>
+          </Stack>
           {
             authMethod==='login'?<Login/>:<SignUp/>
           }
+          <GoogleLogin/>
         </StyledBox>
       </Modal>
       

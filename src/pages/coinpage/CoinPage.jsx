@@ -1,4 +1,4 @@
-import { Box, Button, LinearProgress, Stack, styled, Typography } from '@mui/material'
+import { LinearProgress, Stack, styled, Typography } from '@mui/material'
 import axios from 'axios'
 import React,{useState,useEffect} from 'react'
 import { useParams } from 'react-router'
@@ -7,7 +7,6 @@ import { CoinState } from '../../context/CoinContext'
 import { dark } from '../../theme/DarkTheme'
 import ChartJsComponent from '../../component/chart/ChartJsComponent'
 
-const parse = require('html-react-parser');
 const CoinPage = () => {
   const {id}= useParams()
   const {symbol,currency}=CoinState()

@@ -10,10 +10,15 @@ import CoinPage from './pages/coinpage/CoinPage';
 import { ThemeProvider } from '@emotion/react';
 import { dark } from './theme/DarkTheme';
 import AlertPop from "./component/alert/Alert";
+import { Box } from "@mui/material";
 function App() {
   console.log(process.env)
   return (
-    <div className="App">
+    <Box className="App" sx={{
+      [dark.breakpoints.up('md')]:{
+        backgroundColor:'black',
+      height:'100vh'}
+    }}>
       <BrowserRouter>
       <Header/>
       <Routes>
@@ -26,7 +31,7 @@ function App() {
       <AlertPop/>
       
     </BrowserRouter> 
-  </div>
+  </Box>
     
   );
 }

@@ -1,4 +1,4 @@
-import { LinearProgress, Stack, styled, Typography } from '@mui/material'
+import { Box, LinearProgress, Stack, styled, Typography } from '@mui/material'
 import axios from 'axios'
 import React,{useState,useEffect} from 'react'
 import { useParams } from 'react-router'
@@ -20,19 +20,19 @@ const CoinPage = () => {
     fetchInfo()
   },[currency])
   const CoinPageContainer = styled('div')({
-    padding:'25px',
+    padding:'50px',
     display:'flex',
     width:'100%',
-    height:'90%',
     gap:'10px',
     backgroundColor:'black',
     color:'white',
     [dark.breakpoints.up('md')]:{
-      flexDirection:'row'
+      flexDirection:'row',
     },
     [dark.breakpoints.down('md')]:{
       flexDirection:'column',
-      gap:'25px'
+      backgroundColor:'black',
+      gap:'25px',
     }
   })
 
@@ -42,13 +42,14 @@ const CoinPage = () => {
     width:'100%',
     display:'flex',
     flexDirection:'column',
+    backgroundColor:'black',
     gap:'15px'
   })
   console.log(info)
   if (!info) return <LinearProgress style={{ backgroundColor: "gold" }} />;
   return (
-    <CoinPageContainer >
-      <div className="coin-info" style={{display:'flex',flexDirection:'column',borderRight:'0.5px solid orange',justifyContent:'space-evenly',flex:2,alignItems:'center',paddingLeft:'15px'}}>
+    <CoinPageContainer className='coin-page-container'>
+      <Box className="coin-info" sx={{display:'flex',flexDirection:'column',borderRight:{md:'0.5px solid orange'},justifyContent:'space-evenly',flex:2,alignItems:'center',paddingLeft:'15px'}}>
         <img style={{height:'180px',width:'180px'}} src={info.image?.large} alt="" />
         <Typography variant='h3' color='orange'>{info?.name}</Typography>
         <InfoContainer>
@@ -58,9 +59,9 @@ const CoinPage = () => {
             <Typography><span style={{fontWeight:'bold'}}>Market Cap :&nbsp;</span>{symbol} {info.market_data?.market_cap[currency.toLowerCase()]}</Typography>
          
           </InfoContainer>
-      </div>
+      </Box>
       
-    <Stack style={{height:'100%',flex:3}}>
+    <Stack style={{height:'100%',flex:3,backgroundColor:'black'}}>
       <ChartJsComponent id={id} />
       
     </Stack>

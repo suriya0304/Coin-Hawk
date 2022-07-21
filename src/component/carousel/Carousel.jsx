@@ -24,7 +24,7 @@ const Carousel = () => {
    console.log(TrendingCoins(currency))
   }
   const items = trending.map((coin)=>{
-    
+  
     return(
     <Stack key={coin.id} onClick={()=>navigate(`/coin/${coin.id.toLowerCase()}`)}>
       <Stack style={{gap:'10px',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',color:'white'}}>
@@ -41,8 +41,27 @@ const Carousel = () => {
 
       )
   })
-  
+  const responsive = [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 2
+      }
+    }
+  ]
   const settings = {
+      responsive, 
       infinite: true,
       slidesToShow: 4,
       slidesToScroll: 1,

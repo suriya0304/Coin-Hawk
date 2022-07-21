@@ -4,6 +4,7 @@ import { Line } from 'react-chartjs-2'
 import { HistoricalChart } from '../../config/api'
 import { CoinState } from '../../context/CoinContext'
 import { Box, Stack, styled } from '@mui/material'
+import Chart from 'chart.js/auto';
 const ChartJsComponent = (props) => {
     const {id}=props
     const {symbol,currency}=CoinState()
@@ -55,6 +56,7 @@ const ChartJsComponent = (props) => {
     transition:'1s all ease',
     color:'orange',
     backgroundColor:'black',
+    borderRadius:'10px',
 
     '&:hover':{
       backgroundColor:'orange',
@@ -62,8 +64,8 @@ const ChartJsComponent = (props) => {
     }
   })
     return ( 
-        <Stack direction='column' paddingTop='50px' gap="50px">
-            <Line data={data} options={options}/>
+        <Stack direction='column' paddingTop='50px' gap="50px" bgcolor='black' width='100%'>
+            <Line data={data} options={options} redraw/>
             <Box className="button-grp" sx={{display:'flex',justifyContent:'space-evenly'}}>
                 <StyledButton onClick={()=>setTimeFrame(1)}>24 Hours</StyledButton>
                 <StyledButton onClick={()=>setTimeFrame(30)}>30 Days</StyledButton>

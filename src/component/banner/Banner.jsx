@@ -4,7 +4,7 @@ import Carousel from '../carousel/Carousel'
 
 const Banner = () => {
   return (
-      <Stack justifyContent='center' alignItems='center' gap='10px'>
+      <Stack justifyContent='center' alignItems='center' gap='10px' padding='15px'>
         <Typography sx={{fontSize:'80px',color:'text.primary'}}>Coin Hawk</Typography>
         <Typography sx={{color:'text.secondary',paddingBottom:'20px'}}>Watch latest news and coin price change like a hawk</Typography>
         <Stack style={{width:'85%'}} >

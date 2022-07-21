@@ -43,24 +43,30 @@ const Header = () => {
     flex:'1', paddingTop:"20px", fontSize:'22px', textAlign:'center',cursor:'pointer' 
   })
 
-  const btnStyle={backgroundColor:'orange',color:'black',borderRadius:'5px',fontWeight:'bold',marginLeft:'15px',width:'90px' }
+  const btnStyle={
+    backgroundColor:'orange',
+    color:'black',
+    borderRadius:'5px',
+    fontWeight:'bold',
+    marginLeft:'15px',
+    width:'3%' }
   return (
     
     
-    <AppBar position='static'  sx={{height:{xs:'6%',sm:'10%'},padding:'1%'}}>
+    <AppBar position='sticky'  sx={{height:{xs:'6%',sm:'10%'},width:'100vw',padding:'1%'}}>
     <Container>
-      <Toolbar>
-        <Box sx={{display:'flex',flex:1,gap:'10px',alignItems:'center'}}>
-        <LogoBox onClick={()=>navigate('/') } sx={{display:{xs:'none',sm:'block'}}}>Coin Hawk</LogoBox>
-        <LogoBox sx={{display:{xs:'block'}}} onClick={()=>navigate('/')}> <Hawk /></LogoBox>
+      <Toolbar sx={{justifyContent:'space-between'}}>
+        <Box sx={{display:'flex',gap:'10px',alignItems:'center'}}>
+          <LogoBox onClick={()=>navigate('/') } sx={{display:{xs:'none',sm:'block'}}}>Coin Hawk</LogoBox>
+          <LogoBox sx={{display:{xs:'block'}}} onClick={()=>navigate('/')}> <Hawk /></LogoBox>
         </Box>
-        <div className="">
-          <Select sx={{height:40,width:100,marginLeft:20}} variant='outlined' defaultValue='USD' value={currency} onChange={(e)=>setCurrency(e.target.value)}>
+        <Box className=""  >
+          <Select sx={{height:40}} variant='outlined' defaultValue='USD' value={currency} onChange={(e)=>setCurrency(e.target.value)}>
             <MenuItem value='USD'>USD</MenuItem>
             <MenuItem value='INR'>INR</MenuItem>
           </Select>
           <Button onClick={handleOpen} sx={btnStyle}>Login</Button>
-        </div>
+        </Box>
         
       </Toolbar>
     </Container>

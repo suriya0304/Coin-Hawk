@@ -16,8 +16,8 @@ const AlertPop = () => {
   };
   const {alert,setAlert}= CoinState()
   return (
-    <Snackbar open={alert.open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={alert.type} sx={{ width: '100%' }}>
+    <Snackbar open={alert?.open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={alert?.type} sx={{ width: '100%' }}>
           {alert.msg}
         </Alert>
     </Snackbar>

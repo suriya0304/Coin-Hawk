@@ -7,6 +7,7 @@ import { CoinState } from '../../context/CoinContext'
 import { Hawk } from '../../assets/svg/hawk'
 import { Login, SignUp } from '../loginAndSignUp/LoginandSignUp'
 import GoogleLogin from '../loginWithGoogle/GoogleLogin'
+import SidebarComponent from '../sidebar/SidebarComponent'
 
 
 const Header = () => {
@@ -15,7 +16,7 @@ const Header = () => {
     fontWeight:'bold',
     cursor:'pointer',
   })
-  const {currency,setCurrency}=CoinState()
+  const {currency,setCurrency,user}=CoinState()
 
   const [open, setOpen] = useState(false);
   const [authMethod,setAuthMethod]=useState('login')
@@ -60,12 +61,12 @@ const Header = () => {
           <LogoBox onClick={()=>navigate('/') } sx={{display:{xs:'none',sm:'block'}}}>Coin Hawk</LogoBox>
           <LogoBox sx={{display:{xs:'block'}}} onClick={()=>navigate('/')}> <Hawk /></LogoBox>
         </Box>
-        <Box className=""  >
+        <Box sx={{display:'flex'}}>
           <Select sx={{height:40}} variant='outlined' defaultValue='USD' value={currency} onChange={(e)=>setCurrency(e.target.value)}>
             <MenuItem value='USD'>USD</MenuItem>
             <MenuItem value='INR'>INR</MenuItem>
           </Select>
-          <Button onClick={handleOpen} sx={btnStyle}>Login</Button>
+          {user!==null?<SidebarComponent/>:<Button onClick={handleOpen} sx={btnStyle}>Login</Button>}
         </Box>
         
       </Toolbar>
@@ -82,9 +83,9 @@ const Header = () => {
             <StyledButton onClick={()=>setAuthMethod('signup')}>Sign Up</StyledButton>
           </Stack>
           {
-            authMethod==='login'?<Login/>:<SignUp/>
+            authMethod==='login'?<Login handleClose={handleClose}/>:<SignUp handleClose={handleClose}/>
           }
-          <GoogleLogin/>
+          <GoogleLogin handleClose={handleClose}/>
         </StyledBox>
       </Modal>
       

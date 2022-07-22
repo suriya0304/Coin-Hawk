@@ -1,6 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth'
+import { doc, onSnapshot } from 'firebase/firestore'
 import React,{Children, createContext, useContext, useEffect, useState} from 'react'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
 
 
 const Coin =createContext({})
@@ -14,6 +15,21 @@ const CoinContext = ({children}) => {
       msg:'',
       type:'success'
     })
+    const [watchlist,setWatchlist]=useState([])
+
+    useEffect(()=>{
+      if(user){
+        const coinref=doc(db,"watchlist",user.uid)
+        var unsubscribe=onSnapshot(coinref,(coin)=>{
+        if(coin.exists()){
+          console.log(coin.data().coins)
+          setWatchlist(coin.data().coins)
+        }
+      })
+      return ()=>unsubscribe()
+      }
+      
+    },[user])
 
     useEffect(()=>{
       onAuthStateChanged(auth,(user)=>{
@@ -32,7 +48,7 @@ const CoinContext = ({children}) => {
         
     },[currency])
   return (
-    <Coin.Provider value={{symbol,currency,setSymbol,setCurrency,alert,user,setAlert,setAlert}}>
+    <Coin.Provider value={{symbol,currency,setSymbol,setCurrency,alert,user,setAlert,setAlert,watchlist,setWatchlist}}>
         {children}
     </Coin.Provider>
   )

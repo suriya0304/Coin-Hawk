@@ -9,7 +9,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
 
 export default function SidebarComponent() {
-    const {user,setAlert}=CoinState()
+    const {user,setAlert,watchlist}=CoinState()
     console.log(user)
     const [state, setState] = React.useState({
     right: false,
@@ -44,8 +44,13 @@ export default function SidebarComponent() {
                     <Avatar sx={{width:'100px',height:'100px',bgcolor:'orange'}} src={user.photoURL}/>
                     <Typography variant='h5'>{user.email}</Typography>
                 </div>
-                <div className="" style={{flex:1,overflow:'scroll',borderRadius:'20px'}} width='90%'>
+                <div className="" style={{flex:1,overflow:'scroll',borderRadius:'20px',gap:'10px'}} width='90%'>
                     <Typography textAlign='center'>Your watchlist</Typography>
+                    {watchlist.map((item)=>{
+                        return(
+                            <p>{item}</p>
+                        )
+                    })}
                 </div>
                 <Button sx={{bgcolor:'orange',color:'black',fontWeight:'bold',fontSize:'16px'}} onClick={logout}>Logout</Button>
             </div>

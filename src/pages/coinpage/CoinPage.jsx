@@ -1,4 +1,4 @@
-import { Box, LinearProgress, Stack, styled, Typography } from '@mui/material'
+import { Box, Button, LinearProgress, Stack, styled, Typography } from '@mui/material'
 import axios from 'axios'
 import React,{useState,useEffect} from 'react'
 import { useParams } from 'react-router'
@@ -6,10 +6,12 @@ import { SingleCoin } from '../../config/api'
 import { CoinState } from '../../context/CoinContext'
 import { dark } from '../../theme/DarkTheme'
 import ChartJsComponent from '../../component/chart/ChartJsComponent'
+import { doc, setDoc } from 'firebase/firestore'
+import { db } from '../../firebase'
 
 const CoinPage = () => {
   const {id}= useParams()
-  const {symbol,currency}=CoinState()
+  const {symbol,currency,user,watchlist,setWatchlist,setAlert}=CoinState()
   const [info , setCoin]=useState({})
   const fetchInfo = async ()=>{
     await axios.get(SingleCoin(id.toLowerCase())).then(res=>setCoin(res.data))
@@ -46,6 +48,23 @@ const CoinPage = () => {
     gap:'15px'
   })
   console.log(info)
+  const inWatchlist=watchlist.includes(info.id)
+  const addToWatchlist=async ()=>{
+    const coinref = doc(db,"watchlist",user.uid)
+
+    try{
+      await setDoc(coinref,{coins:watchlist?[...watchlist,info.id]:[info.id]}).then(()=>setAlert({open:true,type:'success',msg:'coin added'}))
+    }catch{}
+  }
+  const removeWatchList=async()=>{
+    const coinref = doc(db,"watchlist",user.uid)
+
+    try{
+      await setDoc(coinref,{coins:watchlist.filter((coin)=>coin!==info?.id)},{merge:true})
+        .then(()=>setAlert({open:true,type:'error',msg:'coin removed'}))
+    }catch{}
+  }
+
   if (!info) return <LinearProgress style={{ backgroundColor: "gold" }} />;
   return (
     <CoinPageContainer className='coin-page-container'>
@@ -59,6 +78,7 @@ const CoinPage = () => {
             <Typography><span style={{fontWeight:'bold'}}>Market Cap :&nbsp;</span>{symbol} {info.market_data?.market_cap[currency.toLowerCase()]}</Typography>
          
           </InfoContainer>
+          {user&&<Button onClick={!inWatchlist?addToWatchlist:removeWatchList} sx={{marginTop:'20px',bgcolor:!inWatchlist? 'green':'Red',color:'black'}}>{!inWatchlist? 'Add to watchlist':'Remove from watchlist'}</Button>}
       </Box>
       
     <Stack style={{height:'100%',flex:3,backgroundColor:'black'}}>

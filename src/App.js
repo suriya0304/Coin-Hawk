@@ -12,7 +12,6 @@ import { dark } from './theme/DarkTheme';
 import AlertPop from "./component/alert/Alert";
 import { Box } from "@mui/material";
 function App() {
-  console.log(process.env)
   return (
     <Box className="App" sx={{
       [dark.breakpoints.up('md')]:{

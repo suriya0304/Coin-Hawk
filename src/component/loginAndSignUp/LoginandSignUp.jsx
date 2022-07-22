@@ -26,7 +26,7 @@ export const Login= (props)=>{
     return(
         <Stack gap='20px' padding='25px'>
             <TextField  color='accent' value={email} id="outlined-basic" label="Enter Email" variant="outlined" onChange={(e)=>setEmail(e.target.value)} />
-            <TextField   color='accent' value={password} id="outlined-basic" label="Enter Password" variant="outlined" onChange={(e)=>setPassword(e.target.value)}/>
+            <TextField   color='accent' value={password} type='password' id="outlined-basic" label="Enter Password" variant="outlined" onChange={(e)=>setPassword(e.target.value)}/>
             <Button onClick={handleLogin} sx={btnStyle}>Login</Button>
           </Stack>
     )
@@ -60,8 +60,8 @@ export const SignUp=(props)=>{
     return(
         <Stack gap='20px' padding='25px'>
             <TextField  color='accent' value={email} id="outlined-basic" label="Enter Email" variant="outlined" onChange={(e)=>setEmail(e.target.value)} />
-            <TextField   color='accent' value={password} id="outlined-basic" label="Enter Password" variant="outlined" onChange={(e)=>setPassword(e.target.value)}/>
-            <TextField  color='accent' value={confirmPassword} id="outlined-basic" label="Confirm Password" variant="outlined" onChange={(e)=>setConfirmPassword(e.target.value)}/>
+            <TextField   color='accent' value={password} type='password' id="outlined-basic" label="Enter Password" variant="outlined" onChange={(e)=>setPassword(e.target.value)}/>
+            <TextField  color='accent' value={confirmPassword} type='password' id="outlined-basic" label="Confirm Password" variant="outlined" onChange={(e)=>setConfirmPassword(e.target.value)}/>
             <Button  onClick={handleSignUp} sx={btnStyle}>Sign Up</Button>
           </Stack>
     )

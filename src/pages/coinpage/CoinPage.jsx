@@ -15,7 +15,6 @@ const CoinPage = () => {
   const [info , setCoin]=useState({})
   const fetchInfo = async ()=>{
     await axios.get(SingleCoin(id.toLowerCase())).then(res=>setCoin(res.data))
-    console.log(info)
   }
   
   useEffect(()=>{
@@ -47,7 +46,6 @@ const CoinPage = () => {
     backgroundColor:'black',
     gap:'15px'
   })
-  console.log(info)
   const inWatchlist=watchlist.includes(info.id)
   const addToWatchlist=async ()=>{
     const coinref = doc(db,"watchlist",user.uid)

@@ -7,7 +7,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 const AlertPop = () => {
-  console.log('alert')
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -16,7 +15,7 @@ const AlertPop = () => {
   };
   const {alert,setAlert}= CoinState()
   return (
-    <Snackbar open={alert?.open} autoHideDuration={3000} onClose={handleClose}>
+    <Snackbar open={alert?.open} autoHideDuration={2000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={alert?.type} sx={{ width: '100%' }}>
           {alert.msg}
         </Alert>

@@ -13,7 +13,6 @@ const ChartJsComponent = (props) => {
 
   const historicData = async()=>{
       const {data} = await axios.get(HistoricalChart(id,timeFrame,currency))
-      console.log(HistoricalChart(id,365,currency))
       setInfo(data.prices)
 
   }
@@ -46,7 +45,6 @@ const ChartJsComponent = (props) => {
     
   },[currency,timeFrame])
 
-  console.log(info)
 
   const StyledButton=styled('button')({
     fontSize:'18px',

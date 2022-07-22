@@ -10,6 +10,7 @@ const CoinContext = ({children}) => {
     const [symbol,setSymbol]=useState('$')
     const [currency,setCurrency]=useState('USD')
     const [user,setUser]=useState(null)
+    const[list,setList]=useState([])
     const [alert,setAlert] = useState({
       open:false,
       msg:'',
@@ -22,7 +23,6 @@ const CoinContext = ({children}) => {
         const coinref=doc(db,"watchlist",user.uid)
         var unsubscribe=onSnapshot(coinref,(coin)=>{
         if(coin.exists()){
-          console.log(coin.data().coins)
           setWatchlist(coin.data().coins)
         }
       })
@@ -39,16 +39,14 @@ const CoinContext = ({children}) => {
           setUser(null)
         }
       })
-      console.log('useeffect activated')
     },[])
-    console.log(user)
     useEffect(()=>{
         if(currency==='USD'){setSymbol('$')}
         else{setSymbol('₹')}
         
     },[currency])
   return (
-    <Coin.Provider value={{symbol,currency,setSymbol,setCurrency,alert,user,setAlert,setAlert,watchlist,setWatchlist}}>
+    <Coin.Provider value={{symbol,currency,setSymbol,setCurrency,alert,user,setAlert,setAlert,watchlist,setWatchlist,list,setList}}>
         {children}
     </Coin.Provider>
   )

@@ -21,7 +21,6 @@ const Carousel = () => {
   const fetchTrending = async ()=>{
     const {data}= await axios.get(TrendingCoins(currency))
     setTrending(data)
-   console.log(TrendingCoins(currency))
   }
   const items = trending.map((coin)=>{
   

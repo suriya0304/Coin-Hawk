@@ -4,13 +4,14 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import { CoinState } from '../../context/CoinContext';
-import { Avatar, Typography } from '@mui/material';
+import { Avatar, IconButton, Typography } from '@mui/material';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { doc, setDoc } from 'firebase/firestore';
 
 export default function SidebarComponent() {
-    const {user,setAlert,watchlist}=CoinState()
-    console.log(user)
+    const {user,setAlert,watchlist,list,symbol}=CoinState()
     const [state, setState] = React.useState({
     right: false,
     });
@@ -26,6 +27,14 @@ export default function SidebarComponent() {
     const logout=()=>{
         signOut(auth).then(()=>setAlert({open:true,type:'error',msg:'loged out'}))
     }
+    const removeWatchList=async(select)=>{
+        const coinref = doc(db,"watchlist",user.uid)
+    
+        try{
+          await setDoc(coinref,{coins:watchlist.filter((coin)=>coin!==select)},{merge:true})
+            .then(()=>setAlert({open:true,type:'error',msg:`${select} removed from watchlist`}))
+        }catch{}
+      }
     return (
     <div>
         {['right'].map((anchor) => (
@@ -44,12 +53,21 @@ export default function SidebarComponent() {
                     <Avatar sx={{width:'100px',height:'100px',bgcolor:'orange'}} src={user.photoURL}/>
                     <Typography variant='h5'>{user.email}</Typography>
                 </div>
-                <div className="" style={{flex:1,overflow:'scroll',borderRadius:'20px',gap:'10px'}} width='90%'>
+                <div className="" style={{flex:1,overflowY:'scroll',borderRadius:'20px',gap:'10px'}} width='90%'>
                     <Typography textAlign='center'>Your watchlist</Typography>
-                    {watchlist.map((item)=>{
-                        return(
-                            <p>{item}</p>
-                        )
+                    {list.map((item)=>{
+                        if(watchlist.includes(item.id)){
+                            
+                            return(
+                                <div className="" key={item.id} style={{display:'flex',justifyContent:'center',alignItems:'center',padding:'5px',borderRadius:'5px',margin:'10px',color:'black',backgroundColor:'orange'}}>
+                                    <span style={{flex:1}}>{item.id}</span>
+                                    <span style={{paddingRight:'20px'}}>{symbol+item.current_price}</span>
+                                    <IconButton aria-label="delete" onClick={()=>removeWatchList(item.id)}>
+                                        <DeleteIcon color='error' />
+                                    </IconButton>
+                                </div>
+                            )
+                        }
                     })}
                 </div>
                 <Button sx={{bgcolor:'orange',color:'black',fontWeight:'bold',fontSize:'16px'}} onClick={logout}>Logout</Button>

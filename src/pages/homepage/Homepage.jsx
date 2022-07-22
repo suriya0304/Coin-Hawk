@@ -4,7 +4,6 @@ import React from 'react'
 import Banner from '../../component/banner/Banner'
 import TableComponent from '../../component/table/Table'
 import { dark } from '../../theme/DarkTheme'
-console.log(dark)
 const Homepage = () => {
   return (
       <Box className="" sx={{backgroundColor:'background.paper'}}>

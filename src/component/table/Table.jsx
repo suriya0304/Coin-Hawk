@@ -19,8 +19,8 @@ const TableComponent = () => {
     function createData(id, name, price, priceChange,MarketCapital) {
         return { id, name, price, priceChange,MarketCapital};
       }
-      const[list,setList]=useState([])
-      const {symbol,currency} = CoinState()
+      
+      const {symbol,currency,list,setList} = CoinState()
     const fetchCoinList=async ()=>{
         const {data} = await axios.get(CoinList(currency))
         setList(data)
